@@ -71,7 +71,7 @@ body{
 <jsp:include page="/views/common/navbar.jsp" />
 
 <div class="form-container">
-<form action="${pageContext.request.contextPath}/register"
+<form action="<%= request.getContextPath() %>/register"
       method="post">
 
 
