@@ -25,6 +25,11 @@ public class TeamFormServlet
 
         List<Hackathon> hackathons =
                 dao.getAllHackathons();
+        System.out.println("Total Hackathons = " + hackathons.size());
+
+for (Hackathon h : hackathons) {
+    System.out.println(h.getHackathonId() + " : " + h.getTitle());
+}
 
         request.setAttribute(
                 "hackathons",

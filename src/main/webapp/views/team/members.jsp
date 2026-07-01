@@ -6,194 +6,414 @@
 
 <html>
 
-<head>
+    <head>
 
 
-<title>Team Members</title>
+        <title>Team Members</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+              rel="stylesheet">
 
-<style>
+        <style>
+            body{
 
-    body{
-        margin:0;
-        min-height:100vh;
+                margin:0;
 
-        background:linear-gradient(
-            135deg,
-            #000000,
-            #0a0f2c,
-            #1e40af
-        );
+                min-height:100vh;
 
-        background-attachment:fixed;
-        color:white;
-    }
+                background:linear-gradient(
+                    135deg,
+                    #000000,
+                    #0a0f2c,
+                    #1e40af
+                    );
 
-    .card{
-        border-radius:20px;
-        overflow:hidden;
-    }
+                background-attachment:fixed;
 
-    .card-header{
-        border-radius:20px 20px 0 0 !important;
-    }
+                color:white;
 
-</style>
+                font-family:'Segoe UI',sans-serif;
+            }
 
+            /* Page */
 
-</head>
+            .members-container{
 
-<body>
+                max-width:950px;
 
-<jsp:include page="/views/common/navbar.jsp" />
+                margin:40px auto;
 
-<%
-List<TeamMember> members =
-(List<TeamMember>) request.getAttribute("members");
-%>
+                padding:20px;
 
-<div class="container mt-4">
+            }
 
-<%
-if(members == null || members.isEmpty()){
-%>
+            /* Glass Card */
 
-<div class="card shadow-lg">
+            .card{
 
+                position:relative;
 
-<div class="card-body">
+                overflow:hidden;
 
-    <h3>No Members Found</h3>
+                background:rgba(255,255,255,.05);
 
-</div>
+                backdrop-filter:blur(16px);
 
+                border:1px solid rgba(255,255,255,.12);
 
-</div>
+                border-radius:22px;
 
-<%
-}else{
-%>
+                box-shadow:0 18px 40px rgba(0,0,0,.45);
 
-<div class="card shadow-lg">
+                transition:.35s;
 
-<div class="card-header bg-primary text-white">
+            }
 
-    <h3 class="mb-0">
-        Team Members
-    </h3>
+            .card::before{
 
-</div>
+                content:"";
 
-<div class="card-body">
+                position:absolute;
 
-    <table class="table table-hover table-bordered">
+                top:0;
 
-        <thead class="table-dark">
+                left:0;
 
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>College</th>
-                <th>Role</th>
-                <th>Contact</th>
-            </tr>
+                width:100%;
 
-        </thead>
+                height:4px;
 
-        <tbody>
+                background:linear-gradient(
+                    90deg,
+                    #f72585,
+                    #7209b7,
+                    #4361ee,
+                    #4cc9f0,
+                    #06d6a0,
+                    #f72585
+                    );
 
+                background-size:200% 100%;
 
-<%
-for(TeamMember member : members){
-%>
+                animation:gradShift 4s linear infinite;
 
-<tr>
+            }
 
+            .card:hover{
 
-<td>
-    <%= member.getName() %>
-</td>
+                transform:translateY(-6px);
 
-<td>
-    <%= member.getEmail() %>
-</td>
+                box-shadow:0 24px 45px rgba(114,9,183,.35);
 
-<td>
-    <%= member.getCollege() %>
-</td>
+            }
 
-<td>
+            /* Animation */
 
+            @keyframes gradShift{
 
-<%
-if("Leader".equalsIgnoreCase(member.getRole())){
-%>
+                0%{
 
-<span class="badge bg-danger">
-    Leader
-</span>
+                    background-position:0% 50%;
 
-<%
-}else{
-%>
+                }
 
-<span class="badge bg-success">
-    Member
-</span>
+                100%{
 
-<%
-}
-%>
+                    background-position:200% 50%;
 
+                }
 
-</td>
+            }
 
-<td>
+            /* Header */
 
-    <a href="mailto:<%= member.getEmail() %>"
-       class="btn btn-primary btn-sm">
+            .card-header{
 
-        Contact
+                background:transparent;
 
-    </a>
+                border-bottom:1px solid rgba(255,255,255,.08);
 
-</td>
+                color:#f72585;
 
-</tr>
+                font-size:28px;
 
-<%
-}
-%>
+                font-weight:800;
 
+                padding:22px;
 
-        </tbody>
+            }
 
-    </table>
+            /* Body */
 
-</div>
+            .card-body{
 
+                color:white;
 
-</div>
+                padding:25px;
 
-<%
-}
-%>
+            }
 
-<br>
+            /* Table */
 
-<a href="<%= request.getContextPath() %>/teams"
-class="btn btn-light">
+            .table{
 
+                color:white;
 
-Back To Teams
+                margin-bottom:0;
 
+            }
 
-</a>
+            .table th{
 
-</div>
+                background:rgba(255,255,255,.08);
 
-</body>
+                color:#4cc9f0;
+
+                text-transform:uppercase;
+
+                font-size:12px;
+
+                letter-spacing:1px;
+
+                border:none;
+
+            }
+
+            .table td{
+
+                background:transparent;
+
+                border-color:rgba(255,255,255,.08);
+
+                vertical-align:middle;
+
+            }
+
+            .table tbody tr{
+
+                transition:.3s;
+
+            }
+
+            .table tbody tr:hover{
+
+                background:rgba(255,255,255,.05);
+
+            }
+
+            /* Avatar */
+
+            .member-avatar{
+
+                width:48px;
+
+                height:48px;
+
+                border-radius:14px;
+
+                display:flex;
+
+                justify-content:center;
+
+                align-items:center;
+
+                font-weight:700;
+
+                color:white;
+
+                background:linear-gradient(
+                    135deg,
+                    #f72585,
+                    #7209b7
+                    );
+
+            }
+
+            /* Button */
+
+            .btn-back{
+
+                background:linear-gradient(
+                    90deg,
+                    #4361ee,
+                    #7209b7
+                    );
+
+                color:white;
+
+                border:none;
+
+                border-radius:12px;
+
+                padding:10px 22px;
+
+                font-weight:700;
+
+                transition:.3s;
+
+            }
+
+            .btn-back:hover{
+
+                transform:translateY(-2px);
+
+                box-shadow:0 12px 24px rgba(67,97,238,.35);
+
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+
+        <jsp:include page="/views/common/navbar.jsp" />
+
+        <%
+            List<TeamMember> members
+                    = (List<TeamMember>) request.getAttribute("members");
+        %>
+
+        <div class="container mt-4">
+
+            <%
+                if (members == null || members.isEmpty()) {
+            %>
+
+            <div class="card shadow-lg">
+
+
+                <div class="card-body">
+
+                    <h3>No Members Found</h3>
+
+                </div>
+
+
+            </div>
+
+            <%
+            } else {
+            %>
+
+            <div class="card shadow-lg">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        Team Members
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-hover table-bordered">
+
+                        <thead class="table-dark">
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>College</th>
+                                <th>Role</th>
+                                <th>Contact</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+
+                            <%
+                                for (TeamMember member : members) {
+                            %>
+
+                            <tr>
+
+
+                                <td>
+                                    <%= member.getName()%>
+                                </td>
+
+                                <td>
+                                    <%= member.getEmail()%>
+                                </td>
+
+                                <td>
+                                    <%= member.getCollege()%>
+                                </td>
+
+                                <td>
+
+
+                                    <%
+                                        if ("Leader".equalsIgnoreCase(member.getRole())) {
+                                    %>
+
+                                    <span class="badge bg-danger">
+                                        Leader
+                                    </span>
+
+                                    <%
+                                    } else {
+                                    %>
+
+                                    <span class="badge bg-success">
+                                        Member
+                                    </span>
+
+                                    <%
+                                        }
+                                    %>
+
+
+                                </td>
+
+                                <td>
+
+                                    <a href="mailto:<%= member.getEmail()%>"
+                                       class="btn btn-primary btn-sm">
+
+                                        Contact
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            <%
+                                }
+                            %>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </div>
+
+            <%
+                }
+            %>
+
+            <br>
+
+            <a href="<%= request.getContextPath()%>/teams"
+               class="btn btn-light">
+
+
+                Back To Teams
+
+
+            </a>
+
+        </div>
+
+    </body>
 
 </html>

@@ -1,6 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<!DOCTYPE html>
+<%@ page import="com.hackhub.model.Admin" %>
+
+<%
+    Admin admin
+            = (Admin) session.getAttribute("admin");
+
+    if (admin == null) {
+
+        response.sendRedirect(
+                request.getContextPath()
+                + "/views/admin/login.jsp");
+
+        return;
+    }
+%>
 <html>
     <head>
         <title>Add Hackathon</title>
@@ -12,149 +26,422 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     </head>
-    <style>
-        body{
-    margin:0;
-    min-height:100vh;
-    background:linear-gradient(
-        135deg,
-        #000000,
-        #0a0f2c,
-        #1e40af
-    );
-    background-attachment:fixed;
-    color:white;
-}
+    <style>.form-card{
 
-.form-container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:85vh;
-}
+            width:700px;
 
-.form-card{
-    width:550px;
-    background:white;
-    color:black;
-    padding:30px;
-    border:2px solid black;
-    border-radius:20px;
-    box-shadow:0px 5px 20px rgba(0,0,0,0.3);
-}
+            max-width:95%;
 
-.form-title{
-    text-align:center;
-    margin-bottom:25px;
-    font-weight:bold;
-}
+            background:rgba(255,255,255,.05);
 
-.form-group{
-    display:flex;
-    align-items:center;
-    margin-bottom:15px;
-}
+            backdrop-filter:blur(16px);
 
-.form-group label{
-    width:170px;
-    font-weight:bold;
-}
+            border:1px solid rgba(255,255,255,.12);
 
-.form-group input,
-.form-group textarea,
-.form-group select{
-    flex:1;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:8px;
-}
+            border-radius:22px;
 
-.form-group textarea{
-    height:80px;
-    resize:none;
-}
+            padding:35px;
 
-.form-group-btn{
-    text-align:center;
-    margin-top:20px;
-}
+            box-shadow:0 18px 40px rgba(0,0,0,.45);
+
+            position:relative;
+
+            overflow:hidden;
+
+        }
+        .form-group{
+
+            margin-bottom:20px;
+
+        }
+        .form-card::before{
+
+            content:"";
+
+            position:absolute;
+
+            top:0;
+
+            left:0;
+
+            width:100%;
+
+            height:4px;
+
+            background:linear-gradient(
+                90deg,
+                #f72585,
+                #7209b7,
+                #4361ee,
+                #4cc9f0,
+                #06d6a0,
+                #f72585
+                );
+
+            background-size:200% 100%;
+
+            animation:rainbow 4s linear infinite;
+
+        }
+
+        @keyframes rainbow{
+
+            from{
+
+                background-position:0%;
+
+            }
+
+            to{
+
+                background-position:200%;
+
+            }
+
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select{
+
+            width:100%;
+
+            padding:13px 15px;
+
+            background:#20263b;
+
+            color:white;
+
+            border:1px solid rgba(255,255,255,.15);
+
+            border-radius:12px;
+
+            font-size:15px;
+
+            transition:.3s;
+
+            box-sizing:border-box;
+
+        }
+        .form-group textarea{
+
+            height:120px;
+
+            resize:none;
+
+        }
+        .form-title{
+
+            text-align:center;
+
+            font-size:34px;
+
+            color:#facc15;
+
+            margin-bottom:10px;
+
+        }
+
+        .form-subtitle{
+
+            text-align:center;
+
+            color:#94a3b8;
+
+            margin-bottom:30px;
+
+        }
+        .btn-create{
+
+            width:220px;
+
+            height:52px;
+
+            display:block;
+
+            margin:35px auto 0;
+
+            border:none;
+
+            border-radius:30px;
+
+            background:linear-gradient(
+                90deg,
+                #f72585,
+                #7209b7
+                );
+
+            color:white;
+
+            font-size:18px;
+
+            font-weight:bold;
+
+        }
+        .form-group label{
+
+            display:block;
+
+            margin-bottom:8px;
+
+            color:#FBBF24;
+
+            font-size:14px;
+
+            font-weight:600;
+
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select{
+
+            width:100%;
+
+            padding:12px 15px;
+
+            background:rgba(255,255,255,.08);
+
+            border:1px solid rgba(255,255,255,.15);
+
+            border-radius:12px;
+
+            color:white;
+
+            outline:none;
+
+            transition:.3s;
+
+            font-size:15px;
+
+            box-sizing:border-box;
+
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus{
+
+            border-color:#4cc9f0;
+
+            box-shadow:0 0 15px rgba(76,201,240,.35);
+
+        }
+
+        .form-group textarea{
+
+            min-height:120px;
+
+            resize:vertical;
+
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder{
+
+            color:#94a3b8;
+
+        }
+
+        .form-group select{
+
+            cursor:pointer;
+
+        }
+
+        .form-group option{
+
+            background:#111827;
+
+            color:white;
+
+        }
+        .form-container{
+
+            width:100%;
+
+            min-height:calc(100vh - 70px);
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:flex-start;
+
+            padding:50px 20px;
+
+        }
     </style>
     <body>
-        <jsp:include page="/views/common/navbar.jsp" />
-        <h2>Add New Hackathon</h2>
+
+        <jsp:include page="/views/common/navbar.jsp"/>
 
         <div class="form-container">
 
-    <div class="form-card">
+            <div class="form-card">
 
-        <h2 class="form-title">
-            Add New Hackathon
-        </h2>
+                <h2 class="form-title">
 
-        <form action="${pageContext.request.contextPath}/addHackathon"
-              method="post">
+                    <i class="bi bi-trophy-fill"></i>
 
-            <div class="form-group">
-                <label>Title:</label>
-                <input type="text" name="title" required>
-            </div>
-
-            <div class="form-group">
-                <label>Description:</label>
-                <textarea name="description"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Organizer:</label>
-                <input type="text" name="organizer" required>
-            </div>
-
-            <div class="form-group">
-                <label>Location(district):</label>
-                <input type="text" name="location" required>
-            </div>
-
-            <div class="form-group">
-                <label>Start Date:</label>
-                <input type="date" name="startDate" required>
-            </div>
-
-            <div class="form-group">
-                <label>End Date:</label>
-                <input type="date" name="endDate" required>
-            </div>
-
-            <div class="form-group">
-                <label>Region(state):</label>
-                <input type="text" name="region">
-            </div>
-
-            <div class="form-group">
-                <label>Registration Deadline:</label>
-                <input type="date" name="registrationDeadline">
-            </div>
-
-            <div class="form-group">
-                <label>Status:</label>
-                <select name="status">
-                    <option value="Upcoming">Upcoming</option>
-                    <option value="Ongoing">Ongoing</option>
-                    <option value="Completed">Completed</option>
-                </select>
-            </div>
-
-            <div class="form-group-btn">
-                <button type="submit"
-                        class="btn btn-primary">
                     Add Hackathon
-                </button>
+
+                </h2>
+
+                <p class="form-subtitle">
+
+                    Create a new hackathon for students.
+
+                </p>
+
+
+                <div class="form-container">
+
+                    <div class="form-card">
+
+                        <form action="<%=request.getContextPath()%>/addHackathon"
+                              method="post">
+
+                            <div class="form-group">
+
+                                <label>Hackathon Title</label>
+
+                                <input
+                                    type="text"
+                                    name="title"
+                                    placeholder="Enter Hackathon Title"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Description</label>
+
+                                <textarea
+                                    name="description"
+                                    rows="4"
+                                    placeholder="Enter Description"
+                                    required></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Organizer</label>
+
+                                <input
+                                    type="text"
+                                    name="organizer"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Location</label>
+
+                                <input
+                                    type="text"
+                                    name="location"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Region</label>
+
+                                <input
+                                    type="text"
+                                    name="region"
+                                    required>
+
+                            </div>
+
+
+                            
+
+                            <div class="form-group">
+
+                                <label>Start Date</label>
+
+                                <input
+                                    type="date"
+                                    name="startDate"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>End Date</label>
+
+                                <input
+                                    type="date"
+                                    name="endDate"
+                                    required>
+
+                            </div><div class="form-group">
+
+                                <label>Registration Deadline</label>
+
+                                <input
+                                    type="date"
+                                    name="registrationDeadline"
+                                    required>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Status</label>
+
+                                <select name="status">
+
+                                    <option>ongoing</option>
+
+                                    <option>Upcoming</option>
+
+                                    <option>Closed</option>
+
+                                </select>
+
+                            </div><div class="form-group">
+
+                                <label>
+
+                                    Registration Link
+
+                                </label>
+
+                                <input
+                                    type="url"
+                                    name="registrationLink"
+                                    placeholder="https://example.com/register"
+                                    required>
+
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn-create">
+
+                                <i class="bi bi-plus-circle-fill"></i>
+
+                                Create Hackathon
+
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
             </div>
 
-        </form>
-
-    </div>
-
-</div>
+        </div>
 
     </body>
 </html>

@@ -34,6 +34,8 @@ public class HackathonCreateServlet
 
         hackathon.setLocation(
                 request.getParameter("location"));
+        String region
+                = request.getParameter("region");
 
         hackathon.setStartDate(
                 Date.valueOf(
@@ -42,18 +44,16 @@ public class HackathonCreateServlet
         hackathon.setEndDate(
                 Date.valueOf(
                         request.getParameter("endDate")));
-
-        String region
-                = request.getParameter("region");
-
         Date registrationDeadline
                 = Date.valueOf(
                         request.getParameter(
                                 "registrationDeadline"));
-
         hackathon.setStatus(
                 request.getParameter("status"));
-
+        
+        hackathon.setRegistrationLink(
+                request.getParameter("registrationLink"));
+        
         hackathon.setRegion(region);
 
         hackathon.setRegistrationDeadline(

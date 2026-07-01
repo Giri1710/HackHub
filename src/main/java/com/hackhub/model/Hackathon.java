@@ -98,4 +98,13 @@ public String getRegion() {
 public void setRegion(String region) {
     this.region = region;
 }
+private String registrationLink;
+
+public String getRegistrationLink() {
+    return registrationLink;
+}
+
+public void setRegistrationLink(String registrationLink) {
+    this.registrationLink = registrationLink;
+}
 }

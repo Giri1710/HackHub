@@ -1,0 +1,177 @@
+/* ===========================
+   HackHub Professional Theme
+   =========================== */
+
+body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e3a8a
+    );
+
+    background-attachment:fixed;
+}
+
+/* Navbar */
+
+.navbar-custom{
+
+    background:#0B1120 !important;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.35);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    padding:14px 30px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:9999;
+}
+
+.logo{
+
+    color:white !important;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    text-decoration:none;
+}
+
+.logo:hover{
+
+    color:white;
+}
+
+.nav-link{
+
+    color:white !important;
+
+    margin-left:12px;
+
+    transition:.3s;
+}
+
+.nav-link:hover{
+
+    color:#60A5FA !important;
+
+    transform:translateY(-2px);
+}
+
+.dropdown-menu{
+
+    background:#111827;
+
+    border:none;
+
+    border-radius:15px;
+
+    overflow:hidden;
+}
+
+.dropdown-item{
+
+    color:white;
+}
+
+.dropdown-item:hover{
+
+    background:#2563EB;
+
+    color:white;
+}
+
+/* Cards */
+
+.card{
+
+    border:none;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    transition:.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+}
+
+.card-header{
+
+    border-radius:20px 20px 0 0 !important;
+}
+
+/* Buttons */
+
+.btn{
+
+    border-radius:30px;
+}
+
+.btn-primary{
+
+    background:#2563EB;
+
+    border:none;
+}
+
+.btn-success{
+
+    border:none;
+}
+
+.btn-warning{
+
+    border:none;
+}
+
+/* Tables */
+
+.table{
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+}
+
+/* Titles */
+
+.page-title{
+
+    color:white;
+
+    font-size:40px;
+
+    font-weight:700;
+
+    margin-bottom:30px;
+}
+
+/* Forms */
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+}
+
+.container{
+
+    padding-top:30px;
+}

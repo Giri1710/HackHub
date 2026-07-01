@@ -49,6 +49,8 @@ public class HackathonDAO {
                 h.setRegistrationDeadline(
                         rs.getDate(
                                 "registration_deadline"));
+                h.setRegistrationLink(
+                        rs.getString("registration_link"));
 
                 h.setStartDate(
                         rs.getDate("start_date"));
@@ -73,12 +75,12 @@ public class HackathonDAO {
 
         boolean success = false;
 
-        String sql =
-        "INSERT INTO hackathons "
-        + "(title,description,organizer,"
-        + "location,region,start_date,"
-        + "end_date,registration_deadline,status) "
-        + "VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql
+                = "INSERT INTO hackathons "
+                + "(title,description,organizer,"
+                + "location,region,start_date,"
+                + "end_date,registration_deadline,status,registration_link)"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try (
                 Connection con
@@ -104,6 +106,7 @@ public class HackathonDAO {
 
             ps.setString(9, hackathon.getStatus());
 
+            ps.setString(10, hackathon.getRegistrationLink());
             int rows = ps.executeUpdate();
 
             success = rows > 0;
@@ -191,4 +194,31 @@ public class HackathonDAO {
 
     }
 
+    public boolean deleteHackathon(int hackathonId) {
+
+        boolean success = false;
+
+        String sql =
+"DELETE FROM hackathons "
++ "WHERE hackathon_id=? "
++ "AND status='Completed'";
+
+        try (
+                Connection con
+                = DBConnection.getConnection(); PreparedStatement ps
+                = con.prepareStatement(sql)) {
+
+            ps.setInt(1, hackathonId);
+
+            success = ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        return success;
+
+    }
 }

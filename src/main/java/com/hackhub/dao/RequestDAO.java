@@ -339,4 +339,41 @@ public class RequestDAO {
 
     return requests;
 }
+
+    public List<Request> getProjectRequests() {
+
+    List<Request> requests = new ArrayList<>();
+
+    String sql = "SELECT * FROM requests WHERE request_type='PROJECT_JOIN'";
+
+    try (
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+    ) {
+
+        while (rs.next()) {
+
+            Request req = new Request();
+
+            req.setRequestId(rs.getInt("request_id"));
+            req.setSenderId(rs.getInt("sender_id"));
+            req.setReceiverId(rs.getInt("receiver_id"));
+            req.setRequestType(rs.getString("request_type"));
+            req.setTeamId(rs.getInt("team_id"));
+            req.setProjectId(rs.getInt("project_id"));
+            req.setMessage(rs.getString("message"));
+            req.setStatus(rs.getString("status"));
+            req.setContactEmail(rs.getString("contact_email"));
+
+            requests.add(req);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return requests;
+}
+    
 }
