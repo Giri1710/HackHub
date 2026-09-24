@@ -173,6 +173,20 @@
 
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="${pageContext.request.contextPath}/ScenarioServlet">
+                                Weekly Contest
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="${pageContext.request.contextPath}/AllocatedTeamsServlet">
+                                Allocated Teams
+                            </a>
+                        </li>
+
                         <li>
 
                             <a class="dropdown-item text-danger"

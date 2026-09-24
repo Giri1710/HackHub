@@ -48,8 +48,9 @@ public class LoginServlet extends HttpServlet {
 );
 
             response.sendRedirect(
-                    "views/student/profile.jsp"
-            );
+        request.getContextPath()
+        + "/views/student/profile.jsp"
+);
 
         } else {
 
