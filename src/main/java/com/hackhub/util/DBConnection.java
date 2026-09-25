@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBConnection {
 
     private static final String URL =
-            "jdbc:mysql://localhost:3306/hackhub";
+        "jdbc:mysql://host.docker.internal:3306/hackhub";
 
     private static final String USER =
             "root";

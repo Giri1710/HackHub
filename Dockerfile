@@ -2,7 +2,7 @@
 # Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 # Click nbfs://nbhost/SystemFileSystem/Templates/Other/Dockerfile to edit this template
 
-FROM tomcat:10.1-jdk17
+FROM tomcat:9.0-jdk17
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
